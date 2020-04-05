@@ -7,6 +7,7 @@ namespace ImageEngine
 {
     class EXIF
     {
+        // Variables to read/write fields from EXIF
         public static int ManufacturerPropID = 0;
         public static int CameraPropID = 1;
         public static int LensPropID = 13;
@@ -22,9 +23,7 @@ namespace ImageEngine
         public static String DateTaken;
         public static String Date;
 
-
-
-
+        // Main method to read EXIF data from a given filename
         public static String[] readExif(String file)
         {
 
