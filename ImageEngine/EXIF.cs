@@ -3,7 +3,6 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-
 namespace ImageEngine
 {
     class EXIF
