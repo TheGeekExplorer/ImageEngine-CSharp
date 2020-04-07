@@ -1,38 +1,42 @@
-using System;
+﻿using System;
 using System.IO;
 using ImageEngine;
 
-namespace ImageTest
+namespace CSharpTesting
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int i = 0;
+            String path = "D:\\Photos\\DCIM\\100CANON\\";
 
             // File to read data from
-            if (args.Length == 0) throw new Exception();
-            
+            if (args.Length != 0) path = args[1];
+
             // Get all image files in directory
-            String[] dirs = Directory.GetFiles(@args[1], "*.jpg");
+            string[] dirs = Directory.GetFiles(@path, "*.jpg");
+
+            // Now write the EXIF data out to a file
+            StreamWriter file = new StreamWriter(@path + "EXIF.txt", false);
 
             // Run through each file, and get their EXIF data
-            foreach (var d in dirs) {
-                i++;
+            //foreach (var d in dirs) {
 
                 // Get the EXIF data for a photo
-                String[] results = EXIF.readExif(d);
+                bool result = EXIF.readExif(path + "IMG_0763.jpg");
                 
-                // Write lines to file
-                Console.WriteLine(
-                    "File="             + d                  + 
-                    ", Manufacturer="   + EXIF.Manufacturer  + 
-                    ", Camera="         + EXIF.Camera        + 
-                    ", Lens="           + EXIF.Lens          +
-                    ", Colour Palette=" + EXIF.ColourProfile + 
-                    ", Date Taken="     + EXIF.Date
-                );
-            }
+                Console.WriteLine("Manufacturer: "  + EXIF.Manufacturer);
+                Console.WriteLine("Camera Model: "  + EXIF.Camera);
+                Console.WriteLine("Lens Model: "    + EXIF.Lens);
+                Console.WriteLine("Aperture: "      + EXIF.Aperture);
+                Console.WriteLine("Aperture: "      + EXIF.FNumber);
+                Console.WriteLine("Focal Length: "  + EXIF.FocalLength);
+                Console.WriteLine("Shutter Speed: " + EXIF.ShutterSpeed);
+                Console.WriteLine("Exposure Time: " + EXIF.ExposureTime);
+                Console.WriteLine("Image Size:  "   + EXIF.ImageWidth + "x" + EXIF.ImageHeight);
+            //}
+
+            file.Close();
         }
     }
 }
